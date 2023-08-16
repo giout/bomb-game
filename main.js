@@ -7,35 +7,35 @@ let b = new Bomb();
 let score = 0;
 let highestScore = 0;
 
-// cuando la bomba se cancele, se dibujara una explosion permanente en su ultima posicion
+// when bomb is cancelled, a burst is drawn
 let burstX = -burst.width;
 let burstY = -burst.height;
 
-// lanzar bomba
+// throw bomb
 function launch()
 {
-    // antes de hacer cualquier animacion, se debe repintar todo de nuevo
+    // everyting must be repainted before performing an animation
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground(canvas, house, landscape);
     drawScoring(canvas, score);
     drawBurst(canvas, burst.img, burstX, burstY);
 
-    // El siguiente codigo es el que maneja la velocidad y repinta la bomba, este solo se ejecutara mientras ninguna bomba impacte en la casa
+    // bombs will be repainted until any of them impacts the house
     if (b.speedX != 0 && b.speedY != 0)
     {
         drawBomb(canvas, b);
 
-        // movimiento de la bomba
+        // bomb movement
         b.x += b.speedX;
         b.y += b.speedY;
 
-        // se comprueba que la pelota no haya impactado en la casa
+        // checking if bomb hasn't impact yet
         if (b.x >= house.x && b.y >= house.y)
         {
-            // sonido al explotar
+            // burst sound
             new Audio("sounds/burst-sound.mp3").play();
 
-            // se pasa la velocidad de la bomba a 0 y se cancela su animacion
+            // animation is cancelled
             b.speedX = 0;
             b.speedY = 0;    
 
@@ -43,7 +43,7 @@ function launch()
             gameOverPage.style.display = 'block';
         }
 
-        // la funcion request repite el callback alrededor de 60 veces por segundo, de esta manera el ammabiente se repinta y se vuelve a dibujar la bomba en otra posicion y da la ilusion de que esta moviendose
+        // request function repeats callback 60 times per second, allowing to repaint landscape and bombs in other positions, which gives the effect of movement
         requestAnimationFrame(launch);
     }
 }
@@ -55,14 +55,14 @@ function start()
     launch();  
 }
 
-// iniciar juego
+// start game
 startBtn.addEventListener('click', e =>
 {
     startingPage.style.display = 'none';
     start();
 });
 
-// reiniciar juego
+// restart game
 gameOverBtn.addEventListener('click', e =>
 {
     score = 0;
@@ -73,25 +73,24 @@ gameOverBtn.addEventListener('click', e =>
     start();
 });
 
-// presionar numero -> cancelar bomba
+// press number -> cancel bomb
 document.addEventListener('keydown', e =>
 {
     if (e.key == `${b.number}`)
     { 
-        // sonido al explotar
         new Audio("sounds/burst-sound.mp3").play();
 
         burstX = b.x - 20;
         burstY = b.y - 20;
 
-        // se pinta otra bomba, con otras coordenadas iniciales
+        // another bomb is painted, with inital coords
         b.deploy(setNumber(), setColor(), setPath);
 
         score++; 
         if (score > highestScore) highestScore = score;
         highestScoreTag.innerHTML = "Mejor puntuación: " + highestScore;
 
-        // cada vez que se cree una nueva bomba, la velocidad aumentara proporcionalmente
+        // each time a new bomb is created, speed proportionally increases
         if (score > 0)
         {
 

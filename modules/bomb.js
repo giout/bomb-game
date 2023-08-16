@@ -1,4 +1,4 @@
-// prototipo de la bomba
+// bomb prototype
 export class Bomb
 {
     constructor()

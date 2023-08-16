@@ -1,18 +1,13 @@
-// funciones que generan metodos aleatorios
-
-// generar un numero entero aleatorio
 function randomInteger(min, max)
 {
     return Math.floor(Math.random() * (max - min + 1)) + min; 
 }
 
-// numero aleatorio para la bomba
 function setNumber()
 {
     return randomInteger(0,9);
 }
 
-// color aleatorio para la bomba
 function setColor()
 {
     const colors = ['teal', 'orange', 'red', 'brown', 'chocolate', 'crimson', 'darkslateblue', 'darksalmon', 'purple', 'yellowgreen'];
@@ -23,7 +18,7 @@ function setColor()
 
 }
 
-// define una ruta aleatoria para la bomba (existen 4 rutas posibles) 
+// random path for bomb (4 are possible)
 function setPath(bomb)
 {
     let number = randomInteger(1,4);

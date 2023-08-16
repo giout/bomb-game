@@ -1,5 +1,3 @@
-// elementos de html y del juego en general
-
 const canvas = document.getElementById('my-canvas');
 const context = canvas.getContext('2d');
 
@@ -34,6 +32,6 @@ const burst =
     height: 60
 }
 
-// nota: el sonido no esta inicializado ni tomado en cuenta como elemento debido a que para poder efectuarse varias veces seguidas (interrumpiendose entre si) debe crearse un objeto en cada sonido
+// note: sound is not initialized nor taken into consideration as an element because if it is going to be used many times, there must be created a new instance each time
 
 export {canvas, context, landscape, house, burst, startingPage, startBtn, gameOverBtn, gameOverPage, highestScoreTag}
